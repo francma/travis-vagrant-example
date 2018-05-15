@@ -1,0 +1,20 @@
+dist: trusty
+sudo: yes
+language: generic
+
+script:
+  # exit on fail
+  - set -eo pipefail
+  # install lxc and vagrant
+  - sudo add-apt-repository --yes ppa:ubuntu-lxc/stable
+  - sudo apt-get -qq update
+  - sudo apt-get install --yes lxc lxc-templates cgroup-lite redir
+  - wget https://releases.hashicorp.com/vagrant/2.1.1/vagrant_2.1.1_x86_64.deb
+  - sudo dpkg -i vagrant_2.1.1_x86_64.deb
+  - vagrant plugin install vagrant-lxc
+  # create container
+  - vagrant up
+  # check mounted directory
+  - vagrant ssh -c 'ls -al /travis'
+  # try network inside container
+  - vagrant ssh -c 'ping github.com -c 2'
