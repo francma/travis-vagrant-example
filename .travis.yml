@@ -11,6 +11,7 @@ script:
   - sudo apt-get install --yes lxc lxc-templates cgroup-lite redir
   - wget https://releases.hashicorp.com/vagrant/2.1.1/vagrant_2.1.1_x86_64.deb
   - sudo dpkg -i vagrant_2.1.1_x86_64.deb
+  - rm vagrant_2.1.1_x86_64.deb
   - vagrant plugin install vagrant-lxc
   # create container
   - vagrant up
